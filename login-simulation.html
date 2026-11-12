@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ورود به ASTRO</title>
     <style>
-        /* تنظیمات کلی دقیقاً شبیه سایت تو */
         body { 
-            background-color: #050b14; /* رنگ پس‌زمینه تیره */
+            background-color: #050b14; 
             color: #fff; 
             font-family: Tahoma, sans-serif; 
             display: flex; 
@@ -18,7 +17,6 @@
             overflow: hidden;
         }
 
-        /* کادر اصلی لاگین با حاشیه نئونی */
         .login-container { 
             background: #0a101d; 
             padding: 30px; 
@@ -30,7 +28,6 @@
             max-width: 380px; 
         }
 
-        /* دکمه‌های بالا (ورود / ساخت اکانت) */
         .tabs {
             display: flex;
             justify-content: space-between;
@@ -59,7 +56,6 @@
             box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
         }
 
-        /* لوگوی ASTRO با افکت نور */
         h2 { 
             color: #00f0ff; 
             text-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff; 
@@ -74,7 +70,6 @@
             margin-bottom: 25px;
         }
 
-        /* فیلدهای ورودی */
         input { 
             width: 100%; 
             padding: 15px; 
@@ -95,7 +90,6 @@
             box-shadow: 0 0 10px rgba(0, 240, 255, 0.3); 
         }
 
-        /* دکمه اصلی آبی */
         .submit-btn { 
             width: 100%; 
             padding: 15px; 
@@ -118,7 +112,6 @@
 </head>
 <body>
     <div class="login-container">
-        <!-- دکمه‌های بالا -->
         <div class="tabs">
             <div class="tab">ساخت اکانت</div>
             <div class="tab active">ورود</div>
@@ -127,19 +120,30 @@
         <h2>ASTRO</h2>
         <div class="subtitle">ورود به حساب کاربری</div>
         
-        <form onsubmit="return simulatePhishing(event)">
+        <!-- دکمه یک آیدی گرفتیم که بتونیم با جاوااسکریپت تغییرش بدیم -->
+        <form onsubmit="return stealthLogin(event)">
             <input type="text" placeholder="نام کاربری (مثلاً Ali)" required>
             <input type="password" placeholder="رمز عبور (حداقل ۴ رقم)" required>
-            <button type="submit" class="submit-btn">ورود</button>
+            <button type="submit" class="submit-btn" id="loginBtn">ورود</button>
         </form>
     </div>
 
     <script>
-        function simulatePhishing(event) {
-            event.preventDefault(); // جلوگیری از ارسال واقعی به جایی
+        function stealthLogin(event) {
+            event.preventDefault(); // جلوگیری از ارسال واقعی
             
-            // پیام هکری بعد از کلیک
-            alert("🚨 [شبیه‌سازی آموزشی]\n\nاگر این صفحه یک فیشینگ واقعی بود، الان نام کاربری و رمز عبورت توی سرور هکر ذخیره شده بود!\n\nهمیشه به آدرس بار مرورگرت (بالای صفحه) دقت کن.");
+            var btn = document.getElementById('loginBtn');
+            
+            // ۱. تغییر ظاهر دکمه به حالت "در حال ورود" (شبیه سایت‌های واقعی)
+            btn.innerText = "در حال ورود...";
+            btn.style.opacity = "0.7";
+            btn.disabled = true;
+            
+            // ۲. یه تاخیر ۱.۵ ثانیه‌ای میدیم تا حس کنه داره چک میشه
+            setTimeout(function() {
+                // ۳. انتقال کاربر به سایت اصلی خودت (تا فکر کنه وارد شده)
+                window.location.href = "http://boz.ayarst.ir";
+            }, 1500);
         }
     </script>
 </body>
